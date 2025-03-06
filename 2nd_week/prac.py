@@ -1,3 +1,5 @@
+from collections import deque
+
 from structures import Stack
 
 def isPalindrome(ln):
@@ -37,3 +39,13 @@ def test_problem_stack(s: str):
                 return False
     return stack.is_empty()
 
+def test_problem_queue(n):
+
+    li = deque([i for i in range(1, n+1)])
+
+    while len(li) > 2:
+        li.popleft()
+        sec = li.popleft()
+        li.append(sec)
+
+    return li[1]
