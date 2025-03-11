@@ -142,3 +142,54 @@ class HashTable:
     def _hash_function(self, key):
         return key % 10
 
+class BinaryMaxHeap:
+
+    def __init__(self):
+        self.items = [None]
+
+    def insert(self, val):
+        self.items.append(val)
+        idx = len(self.items) - 1
+        parent_idx = idx // 2
+
+        while parent_idx > 0:
+            if self.items[parent_idx] < self.items[idx]:
+                temp = self.items[parent_idx]
+                self.items[parent_idx] = self.items[idx]
+                self.items[idx] = temp
+                idx = parent_idx
+                parent_idx = idx // 2
+
+    def extract(self):
+        if len(self.items) < 2:
+            return None
+
+        # 최상위 노드 삭제
+        root = self.items[1]
+        # 마지막 노드를 최상위 노드로 이동
+        self.items[1], self.items[-1] = self.items[-1], self.items[1]
+        self.items.pop()
+
+        # 자식 노드와 비교하여 힙 속성 유지
+        '''
+                    1
+              2          3
+            4   5     6    7
+          8 9 10 11 12 13 
+        '''
+        self._percolate_down(1)
+        return root
+
+    def _percolate_down(self, cur):
+        largest = cur
+        left = cur * 2
+        right = cur * 2 + 1
+
+        if left < len(self.items) and self.items[largest] < self.items[left]:
+            largest = left
+        if right < len(self.items) and self.items[largest] < self.items[right]:
+            largest = right
+
+        if largest != cur:
+            self.items[cur], self.items[largest] = self.items[largest], self.items[cur]
+            self._percolate_down(largest)

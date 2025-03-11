@@ -1,4 +1,4 @@
-from structures import LinkedList, Stack, Queue, HashTable
+from structures import LinkedList, Stack, Queue, HashTable, BinaryMaxHeap
 from prac import isPalindrome, test_problem_stack, test_problem_queue
 
 
@@ -88,3 +88,16 @@ assert ht.get(22) == 2
 assert ht.get(32) == 3
 
 ht.get(2)
+
+bmh = BinaryMaxHeap()
+
+bmh.insert(1)
+bmh.insert(2)
+bmh.insert(3)
+bmh.insert(4)
+bmh.insert(5)
+
+bmh.extract()
+bmh.extract()
+
+print(bmh.items)
