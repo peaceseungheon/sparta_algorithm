@@ -116,3 +116,36 @@ def island_bfs(grid):
                 count += 1
 
     return count
+
+def nqueen(n):
+    answer = []
+
+    checked = [-1 for _ in range(n)]
+
+    def is_ok(row):
+        # 0 ~ row -1 까지의 행에 대해 row행의 기물의 열 값과 일치하지 않는지 , 대각선(row와 x 행의 차이의 절대값, row의 기물 위치 열 값과 x행의 기물 위치 열 값의 차이의 절대 값이 같다)
+        # 위 조건이면 퀸의 이동방향과 겹치므로 False 반환 아니면 True 반환
+        for x in range(row):
+            if checked[row] == checked[x] or abs(row - x) == abs(checked[row] - checked[x]):
+                return False
+        return True
+
+    def dfs(row):
+        # row가 n 값에 도달하면 마지막 행까지 탐색했다는 의미이므로 종료조건
+        #
+        if row >= n:
+            board = [['.'] * n for _ in range(n)]
+            for x in range(n):
+                board[x][checked[x]] = 'Q'
+            answer.append([''.join(board[idx]) for idx in range(n)])
+            return
+
+        # 한 행에 대해 각 열마다 기물을 두면서 조건을 만족하는지 검사
+        # 만족한다면 현재 기물 위치를 기록해둔 상태로 다음행 탐색
+        for col in range(n):
+            checked[row] = col
+            if is_ok(row):
+                dfs(row+1)
+    dfs(0)
+    print(answer)
+    return answer
