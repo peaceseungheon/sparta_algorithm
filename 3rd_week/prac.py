@@ -149,3 +149,19 @@ def nqueen(n):
     dfs(0)
     print(answer)
     return answer
+
+def binary_search(nums, target):
+    def recur(start, end):
+        if start > end:
+            return -1
+
+        mid = (start + end) // 2
+        if nums[mid] == target:
+            return mid
+        elif target > nums[mid]:
+            start = mid + 1
+            return recur(start, end)
+        else:
+            end = mid - 1
+            return recur(start, end)
+    return recur(0, len(nums) - 1)
