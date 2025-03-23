@@ -1,3 +1,5 @@
+from structures import BinaryMinHeap
+
 def bubblesort(nums):
     size = len(nums)
     for j in range(size-1, -1, -1):
@@ -83,3 +85,11 @@ def mergesort(arr):
     right = arr[mid:]
 
     return merge(mergesort(left), mergesort(right))
+
+def heapsort(arr):
+    heap = BinaryMinHeap()
+
+    for n in arr:
+        heap.insert(n)
+
+    return [heap.extract() for _ in range(len(arr))]
