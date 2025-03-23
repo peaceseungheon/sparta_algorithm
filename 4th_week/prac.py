@@ -51,3 +51,35 @@ def quicksort(arr, start, end):
     quicksort(arr, start, i)
     quicksort(arr, i+2, end)
     return arr
+
+def merge(arr1, arr2):
+    result = []
+
+    start1 = 0
+    start2 = 0
+
+    while start1 < len(arr1) and start2 < len(arr2):
+
+        if arr1[start1] < arr2[start2]:
+            result.append(arr1[start1])
+            start1 += 1
+        else:
+            result.append(arr2[start2])
+            start2 += 1
+
+    if start1 >= len(arr1):
+        result.extend(arr2[start2:])
+    else:
+        result.extend(arr1[start1:])
+
+    return result
+
+def mergesort(arr):
+    if len(arr) == 1:
+        return arr
+    mid = len(arr) // 2
+
+    left = arr[:mid]
+    right = arr[mid:]
+
+    return merge(mergesort(left), mergesort(right))
